@@ -30,8 +30,8 @@ class Draw_Obj:
         self.key = (img_name, grid_size)
         Make_Cache_Item(self.key)
 
-    def Draw(self, output, gpos, (sx, sy)):
-        cache[ self.key ].Draw(output, gpos, (sx, sy))
+    def Draw(self, output, gpos, sx_sy):
+        cache[ self.key ].Draw(output, gpos, sx_sy)
 
 def Flush_Draw_Obj_Cache():
     global cache
@@ -51,8 +51,8 @@ def Make_Cache_Item(key):
 
             img = resource.Load_Image(img_name)
             (w, h) = img.get_rect().bottomright
-            new_width = Get_Grid_Size() * grid_size
-            new_height = ( new_width * h ) / w
+            new_width = int (Get_Grid_Size() * grid_size)
+            new_height = int (( new_width * h ) / w)
 
             img = pygame.transform.scale(img, (new_width, new_height))
 
@@ -64,13 +64,14 @@ def Make_Cache_Item(key):
             for c in [ 0, 0, 50, 100, 150, 200, 250, 250, 150 ]:
                 self.frames.append(self.__Colour_Substitute(c, img))
 
-        def Draw(self, output, gpos, (sx, sy)):
+        def Draw(self, output, gpos, sx_sy):
+            (sx, sy) = sx_sy
             global frame
 
             (x,y) = Grid_To_Scr(gpos)
             x += self.offset_x - sx
             y += self.offset_y - sy
-            output.blit(self.frames[ ( frame / 2 ) % len(self.frames) ], (x,y))
+            output.blit(self.frames[ int( frame / 2 ) % len(self.frames) ], (x,y))
 
         def __Colour_Substitute(self, sub, image):
             out = image.copy()

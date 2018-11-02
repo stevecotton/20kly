@@ -102,7 +102,9 @@ def Main(data_dir):
     pygame.quit()
 
 
-def Main_Menu_Loop(name, clock, screen, (width, height)):
+def Main_Menu_Loop(name, clock, screen, width_height):
+    (width, height) = width_height
+
     # Further initialisation
     menu_image = resource.Load_Image("mainmenu.jpg")
 

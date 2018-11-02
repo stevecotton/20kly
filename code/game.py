@@ -28,10 +28,12 @@ from mail import New_Mail
 class Game_Data:
     pass
 
-def Main_Loop(screen, clock, (width, height), 
+def Main_Loop(screen, clock, width_height, 
             restore_pos, challenge):
-    # Initialisation of screen things.
 
+    (width, height) = width_height
+
+    # Initialisation of screen things.
     menu_margin = height
     screen.fill((0,0,0))  # screen is black during init
     pygame.display.flip()

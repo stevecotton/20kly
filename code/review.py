@@ -34,16 +34,17 @@ def Analyse_Network(game_object):
     return hr
 
 # Called at the end of the game, to display statistics:
-def Review(screen, (width, height), game_object, historian):
+def Review(screen, width_height, game_object, historian):
 
+    (width, height) = width_height
     g = game_object
     extra.Tile_Texture(screen, "006metal.jpg", screen.get_rect())
 
-    def Text(str, size, (x,y), justify):
+    def Text(str, size, x, y, justify):
         img = stats.Get_Font(size).render(str, True, (255, 255, 255))
 
         if ( justify == 0 ): # centre
-            x -= ( img.get_rect().width ) / 2
+            x -= int(( img.get_rect().width ) / 2)
         elif ( justify < 0 ): # right
             x -= img.get_rect().width
 
@@ -53,11 +54,11 @@ def Review(screen, (width, height), game_object, historian):
 
 
     if ( g.win ):
-        y = Text("You have won the game!", 36, (width / 2, 10), 0)
+        y = Text("You have won the game!", 36, int(width / 2), 10, 0)
     else:
-        y = Text("You have lost the game!", 36, (width / 2, 10), 0) 
+        y = Text("You have lost the game!", 36, int(width / 2), 10, 0) 
 
-    Text("Thankyou for playing!", 15, (width / 2, y), 0) 
+    Text("Thankyou for playing!", 15, int(width / 2), y, 0) 
 
     y += height / 10
 
@@ -83,18 +84,18 @@ def Review(screen, (width, height), game_object, historian):
         ( "Game level", level ),
         ( "Your " + level + " Score", "%u" % score ) ]
 
-    r = Rect(25, y, width / 2, 1)
-    y = Text("Summary", 18, r.center, 0)
+    r = Rect(25, y, int(width / 2), 1)
+    y = Text("Summary", 18, r.center.x, r.center.y, 0)
 
     for (key, data) in l:
-        Text(key, 18, (r.left, y), 1)
-        y = Text(data , 18, (r.right, y), -1)
+        Text(key, 18, r.left, y, 1)
+        y = Text(data , 18, r.right, y, -1)
 
     r.height = y - r.top
     r = r.inflate(10,10)
     pygame.draw.rect(screen, (128, 128, 128), r, 2)
 
-    y = r.bottom + ( height / 10 )
+    y = r.bottom + int( height / 10 )
 
     graph_window = Rect(r.left, y, r.width, ( height - y ) - 25 )
 
@@ -109,14 +110,15 @@ def Review(screen, (width, height), game_object, historian):
         ( "Work Unit Availability", "work_units_avail", (0,255,255) ),
         ( "City Steam Pressure", "city_pressure", (0,0,255) ) ]
 
-    def Regraph((heading, attribute, colour)):
+    def Regraph(heading_attribute_colour):
+        (heading, attribute, colour) = heading_attribute_colour
         pygame.draw.rect(screen, (0, 0, 0), graph_window)
         pygame.draw.rect(screen, (128, 128, 128), graph_window, 2)
 
         graph_subwin = graph_window.inflate(-25,-25)
         (x,y) = graph_subwin.center
         y = graph_window.top + 5
-        Text(heading, 18, (x,y), 0)
+        Text(heading, 18, x, y, 0)
 
         text_margin = 30
 

@@ -10,8 +10,10 @@
 #
 # Page 78, Computer Graphics Principles and Practice (2nd. Ed), Foley et al.
 
-def Line((x1,y1),(x2,y2)):
+def Line(point1, point2):
    
+    (x1,y1) = point1
+    (x2,y2) = point2
     x1 = int(x1)
     y1 = int(y1)
     x2 = int(x2)

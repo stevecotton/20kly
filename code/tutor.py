@@ -301,8 +301,8 @@ def Message(previous_msg_name, this_msg_name,
     global __tutor
     t = __tutor
     if ( t != None ):
-        t.Add_Message((previous_msg_name, this_msg_name,
-                title, text, sf))
+        t.Add_Message(previous_msg_name, this_msg_name,
+                title, text, sf)
 
 def Draw(screen, g):
     global __tutor
@@ -345,9 +345,8 @@ class Tutor_Memory:
         self.update = False
         self.permit_season_change = False
 
-    def Add_Message(self,(previous_msg_name, this_msg_name,
-                title, text, sf)):
-
+    def Add_Message(self, previous_msg_name, this_msg_name,
+                title, text, sf):
         if ( self.current_msg_name == previous_msg_name ):
             self.current_msg_name = this_msg_name
             self.current_msg_surf = self.__Draw(title, text)

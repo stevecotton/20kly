@@ -16,7 +16,10 @@ from primitives import *
 # (x1,y1) and (x2,y2), such that a / b of the line
 # is between (x,y) and (x1,y1).
 
-def Partial_Vector((x1,y1),(x2,y2),(a,b)):
+def Partial_Vector(point1, point2, a_b):
+    (x1,y1) = point1
+    (x2,y2) = point2
+    (a,b) = a_b
     x = x1 + ((( x2 - x1 ) * a ) / b )
     y = y1 + ((( y2 - y1 ) * a ) / b )
     return (x,y)
@@ -24,23 +27,25 @@ def Partial_Vector((x1,y1),(x2,y2),(a,b)):
 
 # I'm always wanting to sort lists of tuples.
 def Sort_By_Tuple_0(list):
-    list.sort(cmp=lambda (a,b),(c,d): cmp(a,c))
+    list.sort(key=lambda x: x[0])
     return None
 
-def More_Accurate_Line((x1,y1), (x2,y2)):
+def More_Accurate_Line(point1, point2):
+    (x1,y1) = point1
+    (x2,y2) = point2
     def A(i):
         return ( 2 * i ) + 1
 
-    return [ (x / 2, y / 2) for (x,y) in
+    return [ (int(x / 2), int(y / 2)) for (x,y) in
             bresenham.Line((A(x1), A(y1)), (A(x2), A(y2))) ]
 
 # Check line (a,b) against given grid pos
-def Intersect_Grid_Square(gpos, (a,b)):
+def Intersect_Grid_Square(gpos, a_b):
     (x,y) = gpos
     x -= 0.5
     y -= 0.5
-    for (c,d) in [ ((x,y), (x+1,y+1)), ((x+1,y),(x,y+1)) ]:
-        if ( intersect.Intersect((a,b), (c,d)) != None ):
+    for c_d in [ ((x,y), (x+1,y+1)), ((x+1,y),(x,y+1)) ]:
+        if ( intersect.Intersect(a_b, c_d) != None ):
             return True
 
     return False
@@ -101,12 +106,12 @@ def Make_Quake_SF_Points(off):
     return [start, finish]
 
 
-def Simple_Menu_Loop(screen, current_menu, (x,y)):
+def Simple_Menu_Loop(screen, current_menu, x_y):
     cmd = None
     quit = False
 
     while (( cmd == None ) and not quit ):
-        current_menu.Draw(screen, (x,y))
+        current_menu.Draw(screen, x_y)
         pygame.display.flip()
 
         e = pygame.event.wait()

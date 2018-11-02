@@ -14,7 +14,7 @@ from primitives import *
 
 
 class User_Interface:
-    def __init__(self, net, (width, height)):
+    def __init__(self, net, size):
         self.net = net
         self.control_menu = None
 
@@ -32,7 +32,7 @@ class User_Interface:
         if ( random.randint(0,1) == 0 ):
             img = pygame.transform.flip(img, True, False)
             
-        self.background = pygame.transform.scale(img, (width, height))
+        self.background = pygame.transform.scale(img, size)
 
         self.steam_effect = particle.Make_Particle_Effect(particle.Steam_Particle)
         self.steam_effect_frame = 0
