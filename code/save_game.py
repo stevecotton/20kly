@@ -20,7 +20,7 @@ def Make_Save_Name(num):
 def Load(g, num):
     name = Make_Save_Name(num)
     try:
-        f = file(name, "rb")
+        f = open(name, "rb")
         header = f.read( HEADER_SIZE )
         g2 = pickle.load(f)
         f.close()
@@ -35,16 +35,19 @@ def Load(g, num):
     return (g2, None)
     
 def Save(g, num, label):
-    l = len(label)
-    if ( l > HEADER_SIZE ):
-        label = label[ 0:HEADER_SIZE ]
-    else:
-        label += ( " " * ( HEADER_SIZE - l ))
+    header = label.encode('utf-8')
+    while len(header) > HEADER_SIZE:
+        # Never expected to happen, but as this is utf-8 encoded, strip a
+        # whole character instead of stripping individual bytes
+        label = label[ 0:len(label)-2 ]
+        header = label.encode('utf-8')
+    if len(header) < HEADER_SIZE:
+        header = header.ljust(HEADER_SIZE)
 
     name = Make_Save_Name(num)
     try:
-        f = file(name, "wb")
-        f.write(label)
+        f = open(name, "wb")
+        f.write(header)
         pickle.dump(g,f)
         f.close()
     except Exception, x:
@@ -56,8 +59,8 @@ def Get_Info(num):
     name = Make_Save_Name(num)
     label = ""
     try:
-        f = file(name, "rb")
-        label = f.read( HEADER_SIZE )
+        f = open(name, "rb")
+        label = f.read( HEADER_SIZE ).decode(encoding='utf-8')
         f.close()
     except Exception, x:
         # File not found, probably.. who cares.
@@ -66,5 +69,3 @@ def Get_Info(num):
     if ( len(label) == 0 ):
         return None
     return label
-
-
