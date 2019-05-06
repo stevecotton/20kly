@@ -85,7 +85,7 @@ def Review(screen, width_height, game_object, historian):
         ( "Your " + level + " Score", "%u" % score ) ]
 
     r = Rect(25, y, int(width / 2), 1)
-    y = Text("Summary", 18, r.center.x, r.center.y, 0)
+    y = Text("Summary", 18, r.center[0], r.center[1], 0)
 
     for (key, data) in l:
         Text(key, 18, r.left, y, 1)
