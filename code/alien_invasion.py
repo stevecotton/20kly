@@ -106,7 +106,7 @@ class Alien_Season(Quiet_Season):
             # No targets! Therefore, no aliens.
             return
 
-        for i in xrange(num_aliens):
+        for i in range(num_aliens):
             x = cx + ( alien_radius * math.cos(alien_angle) )
             y = cy + ( alien_radius * math.sin(alien_angle) )
             a = Alien()
@@ -169,7 +169,7 @@ class Alien:
         self.current_target = None
         self.speed = 0
         self.attack_angle = 0
-        self.points = [ (-1,-1) for i in xrange(3) ]
+        self.points = [ (-1,-1) for i in range(3) ]
         self.countdown = 0
         self.rotation = 0.05 + ( random.random() * 0.05 )
         self.bbox = None

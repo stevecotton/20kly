@@ -76,7 +76,7 @@ def Test():
     BT((2,2),((1,1),(3,3)),((1,3),(3,1)))   # X
     BT(None,((1,1),(3,3)),((2,2),(4,4)))    # parallel lines, on top of each other
 
-    for i in xrange(10000):
+    for i in range(10000):
         Rnd()
 
 if ( __name__ == "__main__" ):

@@ -11,7 +11,7 @@ class Save_Menu(menu.Menu):
     def __init__(self, saving):
         file_list = []
 
-        for i in xrange(save_game.NUM_SLOTS):
+        for i in range(save_game.NUM_SLOTS):
             label = save_game.Get_Info(i)
             j = i
             if ( label == None ):

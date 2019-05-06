@@ -43,7 +43,7 @@ def Initialise(delete_file):
         if cfg2.version == CFG_VERSION:
             # Configuration is valid, we can use it.
             cfg = cfg2
-    except Exception, x:
+    except Exception as x:
         pass
 
 def Save():
@@ -53,6 +53,6 @@ def Save():
         f = open(FILENAME, "wb")
         pickle.dump(cfg, f)
         f.close()
-    except Exception, x:
+    except Exception as x:
         pass
 

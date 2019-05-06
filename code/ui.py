@@ -257,17 +257,17 @@ class User_Interface:
             self.selection = None
 
         if ( DEBUG ):
-            print 'Selection:',self.selection
+            print('Selection:',self.selection)
             for (i,n) in enumerate(self.net.node_list):
                 if ( n == self.selection ):
-                    print 'Found: node',i
+                    print('Found: node',i)
             for (i,p) in enumerate(self.net.pipe_list):
                 if ( p == self.selection ):
-                    print 'Found: pipe',i
-            print 'End'
+                    print('Found: pipe',i)
+            print('End')
 
 
-        if ( not self.net.ground_grid.has_key(gpos) ):
+        if ( gpos not in self.net.ground_grid ):
             self.selection = self.net.Get_Pipe(gpos)
 
             # empty (may contain pipes)
@@ -354,9 +354,9 @@ class User_Interface:
 
     def Debug_Grid(self, output):
         (mx, my) = GRID_SIZE
-        for y in xrange(my):
-            for x in xrange(mx):
-                if ( self.net.pipe_grid.has_key( (x,y) ) ):
+        for y in range(my):
+            for x in range(mx):
+                if ( (x,y) in self.net.pipe_grid ):
                     r = Grid_To_Scr_Rect((x,y))
                     pygame.draw.rect(output, (55,55,55), r, 1)
                     r.width = len(self.net.pipe_grid[ (x,y) ]) + 1

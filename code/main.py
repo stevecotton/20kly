@@ -4,7 +4,7 @@
 # 
 
 
-import pygame , random , sys , math , time , webbrowser , urllib , os
+import pygame , random , sys , math , time , webbrowser , urllib.request, urllib.parse, urllib.error , os
 from pygame.locals import *
 
 import game , stats , storms , extra , save_menu , resource , menu
@@ -18,11 +18,11 @@ DEB_MANUAL = '/usr/share/doc/lightyears/html/index.html'
 def Main(data_dir):
 
     n = "20,000 Light-Years Into Space"
-    print ""
-    print n
-    print "Copyright (C) Jack Whitham 2006-11"
-    print "Version", config.CFG_VERSION
-    print ""
+    print("")
+    print(n)
+    print("Copyright (C) Jack Whitham 2006-11")
+    print("Version", config.CFG_VERSION)
+    print("")
 
     resource.DATA_DIR = data_dir
 
@@ -40,8 +40,8 @@ def Main(data_dir):
         try:
             pygame.mixer.pre_init(22050, -16, 2, bufsize)
             pygame.mixer.init()
-        except pygame.error, message:
-            print 'Sound initialization failed. %s' % message
+        except pygame.error as message:
+            print('Sound initialization failed. %s' % message)
             no_sound = True
 
     pygame.init()
@@ -289,10 +289,10 @@ def Update_Feature(screen, menu_image):
     url = ( CGISCRIPT + "a=1" )
     new_version = None
     try:
-        f = urllib.urlopen(url)
+        f = urllib.request.urlopen(url)
         new_version = f.readline()
         f.close()
-    except Exception, x:
+    except Exception as x:
         Finish(str(x))
         return False
 

@@ -67,7 +67,7 @@ def Review(screen, width_height, game_object, historian):
     lev[ MENU_INTERMEDIATE ] = "Intermediate"
     lev[ MENU_EXPERT ] = "Expert"
     lev[ MENU_PEACEFUL ] = "Peaceful"
-    if ( not lev.has_key( g.challenge ) ):
+    if ( g.challenge not in lev ):
         level = "??"
     else:
         level = lev[ g.challenge ]
@@ -126,7 +126,7 @@ def Review(screen, width_height, game_object, historian):
         graph_subwin.top += text_margin
 
         if ( len(historian) == 0 ):
-            print "Historian has no data - no graph available"
+            print("Historian has no data - no graph available")
             return
 
 
@@ -136,7 +136,7 @@ def Review(screen, width_height, game_object, historian):
             try:
                 gy = getattr(hr, attribute)
             except Attribute_Error:
-                print "Attribute",attribute,"not present"
+                print("Attribute",attribute,"not present")
                 return
 
             if ( gy < 0 ):
@@ -151,7 +151,7 @@ def Review(screen, width_height, game_object, historian):
                 max_gy = gy
 
         if (( max_gt <= 0 ) or ( max_gy <= 0 )):
-            print "Graph not available (/0)"
+            print("Graph not available (/0)")
             return
 
         def Calc_Step_Max(maximum,number_of_steps):

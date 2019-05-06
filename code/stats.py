@@ -60,7 +60,7 @@ def Get_Font(size):
     if ( size < 10 ): 
         size = 10
 
-    if ( not __font_objects.has_key(size) ):
+    if ( size not in __font_objects ):
         __font_objects[ size ] = resource.Load_Font(size)
     return __font_objects[ size ]
 

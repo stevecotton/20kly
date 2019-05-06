@@ -134,7 +134,7 @@ class Difficulty:
             self.STEAM_PRODUCTION_PER_LEVEL = 3
 
         else:
-            print 'Invalid level',level
+            print('Invalid level',level)
             assert False
 
 

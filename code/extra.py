@@ -137,7 +137,7 @@ def Simple_Menu_Loop(screen, current_menu, x_y):
 def Get_OS():
     # On my machine, sys.platform reports 'linux2'. Remove digits.
     pf = sys.platform.title()
-    for i in xrange(len(pf)):
+    for i in range(len(pf)):
         if ( not pf[ i ].isalpha() ):
             pf = pf[0:i]
             break

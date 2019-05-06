@@ -30,7 +30,7 @@ class Network:
 
         # Wells are created. All wells must be at least a certain
         # distance from the city.
-        for i in xrange(10):
+        for i in range(10):
             self.Make_Well(teaching)
 
         # Get centre: 
@@ -74,7 +74,7 @@ class Network:
                 New_Mail("Item is destroyed.")
             return False
 
-        if ( self.pipe_grid.has_key(gpos) ):
+        if ( gpos in self.pipe_grid ):
             # There might be a pipe in the way. Then again,
             # it may have been destroyed already.
             for pipe in self.pipe_grid[ gpos ]:
@@ -88,7 +88,7 @@ class Network:
                         sound.FX("error")
                     return False
 
-        if (( self.ground_grid.has_key(gpos) )
+        if (( gpos in self.ground_grid )
         and ( isinstance(self.ground_grid[ gpos ], Building) )):
             if ( not inhibit_effects ):
                 New_Mail("Can't build there - building in the way!")
@@ -97,7 +97,7 @@ class Network:
 
         if ( isinstance(item, Node) ):
             self.node_list.append(item)
-            if ( self.ground_grid.has_key( gpos )):
+            if ( gpos in self.ground_grid):
                 item.Save(self.ground_grid[ gpos ])
             self.ground_grid[ gpos ] = item
         elif ( isinstance(item, Well) ):
@@ -167,15 +167,15 @@ class Network:
         other_pipes = set([])
         other_items = set([])
         for gpos in path:
-            if ( self.pipe_grid.has_key(gpos) ):
+            if ( gpos in self.pipe_grid ):
                 other_pipes |= set(self.pipe_grid[ gpos ])
-            elif ( self.ground_grid.has_key(gpos) ):
+            elif ( gpos in self.ground_grid ):
                 other_items |= set([self.ground_grid[ gpos ]])
         other_items -= set([n1,n2])
         if ( len(other_items) != 0 ):
             sound.FX("error")
             New_Mail("Pipe collides with other items.")
-            print repr(other_items)
+            print(repr(other_items))
             return False
 
         for p in other_pipes:
@@ -196,14 +196,14 @@ class Network:
         self.pipe_list.append(pipe)
 
         for gpos in path:
-            if ( not self.pipe_grid.has_key(gpos) ):
+            if ( gpos not in self.pipe_grid ):
                 self.pipe_grid[ gpos ] = [pipe]
             else:
                 self.pipe_grid[ gpos ].append(pipe)
         return True
 
     def Get_Pipe(self, gpos):
-        if ( not self.pipe_grid.has_key(gpos) ):
+        if ( gpos not in self.pipe_grid ):
             return None
         l = self.pipe_grid[ gpos ]
 
@@ -247,7 +247,7 @@ class Network:
                 self.__Destroy_Pipe(pipe)
 
         gpos = node.pos
-        if ( not self.ground_grid.has_key( gpos ) ):
+        if ( gpos not in self.ground_grid ):
             return # not on map
         if ( self.ground_grid[ gpos ] != node ):
             return # not on map (something else is there)
@@ -286,7 +286,7 @@ class Network:
    
     def __List_Destroy(self, lst, itm):
         l = len(lst)
-        for i in reversed(xrange(l)):
+        for i in reversed(range(l)):
             if ( lst[ i ] == itm ):
                 assert itm == lst.pop(i)
 
@@ -295,7 +295,7 @@ class Network:
         (x, y) = (cx, cy) = GRID_CENTRE
         (mx, my) = GRID_SIZE
 
-        while (( self.ground_grid.has_key( (x,y) ))
+        while (( (x,y) in self.ground_grid)
         or ( math.hypot( x - cx, y - cy ) < 10 )):
             x = random.randint(0, mx - 1)
             y = random.randint(0, my - 1)

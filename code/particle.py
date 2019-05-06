@@ -89,14 +89,14 @@ def Make_Particle_Effect(particle_class):
     p = particle_class()
     particle_effect = [ 
                 pygame.Surface((p.Max_Size(), p.Max_Size()))
-                        for i in xrange(NUM_FRAMES) ]
+                        for i in range(NUM_FRAMES) ]
 
     for frame in particle_effect:
         frame.set_colorkey((0,0,0))
 
     sz = p.Particle_Size()
 
-    for i in xrange(p.Num_Particles()):
+    for i in range(p.Num_Particles()):
         # note random starting point. Make transition from 
         # frame NUM_FRAMES-1 to frame 0 as seamless as any
         # other frame transition.
@@ -104,7 +104,7 @@ def Make_Particle_Effect(particle_class):
 
         particle = particle_class()
 
-        for k in xrange(NUM_FRAMES):
+        for k in range(NUM_FRAMES):
             ((x,y),c) = particle.Next()
             r = Rect((int(x), int(y)), (sz, sz))
             pygame.draw.rect(particle_effect[ j ], c, r)

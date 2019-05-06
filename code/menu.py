@@ -177,7 +177,7 @@ class Enhanced_Menu(Menu):
         Menu.__init__(self, menu_options, force_width)
 
     def Enhancement_Interface(self, surf, num, rect, margin):
-        if ( self.pictures.has_key( num ) ):
+        if ( num in self.pictures ):
             img = resource.Load_Image( self.pictures[ num ] )
             img_r = img.get_rect()
             img_r.center = rect.center

@@ -121,11 +121,11 @@ def Main_Loop(screen, clock, width_height,
     DIFFICULTY.Set(MENU_INTERMEDIATE)
 
     # Establish equilibrium with initial network.
-    for i in xrange(300):
+    for i in range(300):
         g.net.Steam_Think()
         if ( g.net.hub.Get_Pressure() >= PRESSURE_GOOD ):
             if ( DEBUG ):
-                print i,'steps required for equilibrium'
+                print(i,'steps required for equilibrium')
             break
 
     assert g.net.hub.Get_Pressure() >= PRESSURE_GOOD
@@ -198,7 +198,7 @@ def Main_Loop(screen, clock, width_height,
         lev[ MENU_PEACEFUL ] = "a Peaceful"
     
         assert g.challenge != None
-        assert lev.has_key( g.challenge )
+        assert g.challenge in lev
         New_Mail("You are playing " + lev[ g.challenge ] + " game.")
         New_Mail("Win the game by upgrading your city to tech level %u."
                 % DIFFICULTY.CITY_MAX_TECH_LEVEL )
@@ -250,7 +250,7 @@ def Main_Loop(screen, clock, width_height,
         fps_count += 1
         if ( fps_count > 100 ):
             if ( DEBUG ):
-                print '%1.2f fps' % ( float(fps_count) / ( rt_now - fps_time ) )
+                print('%1.2f fps' % ( float(fps_count) / ( rt_now - fps_time ) ))
             fps_time = rt_now 
             fps_count = 0
 

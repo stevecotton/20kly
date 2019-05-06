@@ -97,7 +97,7 @@ class Quake_Season(Quiet_Season):
         damage_nodes = set([])
         destroy_pipes = set([])
 
-        for i in xrange(len(self.fault_lines) - 1):
+        for i in range(len(self.fault_lines) - 1):
             gpos1 = self.fault_lines[ i ]
             gpos2 = self.fault_lines[ i + 1 ]
             # Any pipes that intersect gpos1 and gpos2 are destroyed.
@@ -134,7 +134,7 @@ class Quake_Season(Quiet_Season):
                 New_Mail("A new steam well has appeared!")
             elif ( num_wells > 1 ):
                 New_Mail("Some new steam wells have appeared!")
-            for i in xrange(num_wells):
+            for i in range(num_wells):
                 self.net.Make_Well(False, True)
 
     def Draw(self, output, update_area):

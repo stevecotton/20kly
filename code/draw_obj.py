@@ -42,7 +42,7 @@ def Next_Frame():
     frame += 1
 
 def Make_Cache_Item(key):
-    if ( cache.has_key(key) ):
+    if ( key in cache ):
         return  # Done already.
 
     class Real_Draw_Obj:
@@ -77,8 +77,8 @@ def Make_Cache_Item(key):
             out = image.copy()
             (w,h) = image.get_rect().bottomright
 
-            for y in xrange(h):
-                for x in xrange(w):
+            for y in range(h):
+                for x in range(w):
                     (r,g,b,a) = out.get_at((x,y))
                     if (( r > 200 ) and ( g < 30 ) and ( b < 30 )): # threshold
                         out.set_at((x,y), (sub, 0, 0, a))
